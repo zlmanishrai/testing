@@ -29,7 +29,7 @@ app.post("/", async (req, res) => {
       courseId: course?.id,
     },
   });
-  res.json({ data: "created" });
+  res.json({ data: students });
 });
 
 app.listen(4000, () => {
