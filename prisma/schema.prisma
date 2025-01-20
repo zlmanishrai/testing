@@ -42,3 +42,59 @@ model Subject{
 //   Subj
 
 // }
+
+
+
+// model Post{
+//   id          Int @default(autoincrement()) @id
+//   title       String
+//   like        Like[]
+// }
+
+// model Like{
+//   userId      Int
+//   user        User @relation(fields: [userId], references: [id])
+//   postId      Int
+//   post        Post @relation(fields: [postId], references: [id])
+
+
+//   @@id([userId, postId])
+// }
+
+
+
+model User{
+  id          Int @id @default(autoincrement())
+  name        String
+  email       String @unique
+  // password    String
+  bio         Bio?
+}
+
+model Bio {
+  id                  Int @id @default(autoincrement())
+  // coverImageUrl     String
+  // profileImageUrl   String
+  // imageUrls         String[]
+  description         String
+  userId              Int @unique
+  user                User @relation(fields: [userId], references: [id])
+  bioHighlights       BioHighlight[]
+}
+
+
+model Highlight {
+  id                Int @id @default(autoincrement())
+  name              String
+  imageUrl          String
+  bioHighlights     BioHighlight[]
+}
+
+model BioHighlight {
+  bioId             Int
+  bio               Bio @relation(fields: [bioId], references: [id])
+  highlightId       Int
+  highlight         Highlight @relation(fields: [highlightId], references: [id])
+
+  @@id(name: "bioHighlightId", [bioId, highlightId])
+}
